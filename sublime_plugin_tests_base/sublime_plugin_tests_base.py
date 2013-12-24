@@ -25,6 +25,7 @@ def template(tmpl_path):
         tmpl = Template(f.read())
 
     # Define our templating wrapper fn
+    # TODO: Move to http://docs.python.org/2/library/functools.html#functools.wraps
     def decorator_fn(fn):
         def templator_fn(*args, **kwargs):
             # Run the normal function
