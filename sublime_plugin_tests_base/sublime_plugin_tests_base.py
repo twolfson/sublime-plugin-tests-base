@@ -37,27 +37,26 @@ def template(tmpl_path):
 
 
 class Base(object):
-    @classmethod
-    def _ensure_plugin_test_dir(cls):
+    def _ensure_plugin_test_dir(self):
         # If the plugin test directory does not exist, create it
-        if not os.path.exists(cls._plugin_test_dir):
-            os.makedirs(cls._plugin_test_dir)
+        if not os.path.exists(self._plugin_test_dir):
+            os.makedirs(self._plugin_test_dir)
 
-    @classmethod
-    def _ensure_utils(cls):
+    def _ensure_utils(self):
         # Ensure the plugin test directory exists
-        cls._ensure_plugin_test_dir()
+        self._ensure_plugin_test_dir()
 
         # TODO: Use similar copy model minus the exception
         # TODO: If we overwrite utils, be sure to wait so that changes for import get picked up
-        if not os.path.exists(cls._plugin_test_dir + '/utils'):
-            shutil.copytree(__dir__ + '/utils', cls._plugin_test_dir + '/utils')
+        if not os.path.exists(self._plugin_test_dir + '/utils'):
+            shutil.copytree(__dir__ + '/utils', self._plugin_test_dir + '/utils')
 
-    # TODO: Move auto_kill_sublime as an __init__ parameter
-    @classmethod
-    def _run_test(cls, test_str, auto_kill_sublime=False):
+    def __init__(self, auto_kill_sublime=False):
+        self.auto_kill_sublime = auto_kill_sublime
+
+    def run_test(self, test_str):
         # Guarantee there is an output directory and launcher
-        cls._ensure_utils()
+        self._ensure_utils()
 
         # Reserve an output file
         output_file = tempfile.mkstemp()[1]
@@ -67,16 +66,16 @@ class Base(object):
         f = open(__dir__ + '/templates/plugin_runner.py')
         runner_template = Template(f.read())
         plugin_runner = runner_template.render(output_file=output_file,
-                                               auto_kill_sublime=auto_kill_sublime)
+                                               auto_kill_sublime=self.auto_kill_sublime)
         f.close()
 
         # Output plugin_runner to directory
-        f = open(cls._plugin_test_dir + '/plugin_runner.py', 'w')
+        f = open(self._plugin_test_dir + '/plugin_runner.py', 'w')
         f.write(plugin_runner)
         f.close()
 
         # Output test to directory
-        f = open(cls._plugin_test_dir + '/plugin.py', 'w')
+        f = open(self._plugin_test_dir + '/plugin.py', 'w')
         f.write(test_str)
         f.close()
 
