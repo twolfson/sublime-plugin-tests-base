@@ -80,7 +80,7 @@ Documentation
 -------------
 ``sublime-plugin-tests-base`` consists of two pieces: test framework code (outside Sublime Text) and test helpers (inside Sublime Text).
 
-The test framework code is run in your normal development environment (e.g. where `nosetests` lives). The test helpers live inside of Sublime text to make your testing life easier.
+The test framework code is run in your normal development environment (e.g. where ``nosetests`` lives). The test helpers live inside of Sublime text to make your testing life easier.
 
 Test framework
 ^^^^^^^^^^^^^^
