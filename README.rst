@@ -69,7 +69,7 @@ Then, write your tests:
     OK
 
 Travis CI integration
-'''''''''''''''''''''
+^^^^^^^^^^^^^^^^^^^^^
 We support both Sublime Text 2 and 3 via Travis CI.
 
 Please consult `sublime-plugin-tests#travis-ci-integration`_ for the most up-to-date information.
@@ -82,7 +82,44 @@ Documentation
 
 The test framework code is run in your normal development environment (e.g. where `nosetests` lives). The test helpers live inside of Sublime text to make your testing life easier.
 
+Test framework
+^^^^^^^^^^^^^^
+Base(auto_kill_sublime=False)
+"""""""""""""""""""""""""""""
+Class for running enclosed tests inside of Sublime. It handles capturing and returning errors.
 
+- auto_kill_sublime ``Boolean`` - If true, this will close Sublime Text automatically when the test completes.
+    - This is useful for headless environments which are using a synchronous Sublime Text (e.g. Sublime Text 2)
+
+base.directory
+""""""""""""""
+Folder where tests are run. This can be used for writing relatively imported files.
+
+run_test(action_str)
+""""""""""""""""""""
+Run code within the context of Sublime Text. This will capture any **synchronous** errors that occur. To clarify, if you use ``sublime.set_timeout``, we cannot report back the error.
+
+- action_str ``String`` - Code to run within the context of Sublime Text. This should be making assertions against views as the data will not be available in the ``result``.
+
+**Returns:**
+
+- result ``Dictionary`` - Container for results
+    - success ``Boolean`` - If there were no errors, ``True``. Otherwise, ``False``.
+    - meta_info ``String`` - If there was an error, formatted traceback from the error that occurred. Otherwise, ``''``.
+
+Test helpers
+^^^^^^^^^^^^
+utils.scratch_view.ScratchView
+""""""""""""""""""""""""""""""
+This assists with creating/tearing down/manipulating views. Please consult `sublime-plugin-tests#utilsscratch_viewscratchview`_ for the most up-to-date information.
+
+.. _`sublime-plugin-tests#utilsscratch_viewscratchview`: https://github.com/twolfson/sublime-plugin-tests#utilsscratch_viewscratchview
+
+Architecture
+------------
+Please consult `sublime-plugin-tests#architecture`_ for the most up-to-date information.
+
+.. _`sublime-plugin-tests#travis-ci-integration`: https://github.com/twolfson/sublime-plugin-tests#architecture
 
 Contributing
 ------------
