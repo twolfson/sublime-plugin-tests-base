@@ -46,14 +46,15 @@ import os
 import sublime
 
 def run():
+    # Wait for the plugin to load
     if (not os.path.exists('/tmp/valid_ready') or os.stat('/tmp/valid_ready').st_size == 0):
         sublime.set_timeout(run, 100)
     else:
+    # When it's loaded, run it
         sublime.active_window().run_command('sublime_plugin_tests_base_valid')
 """)
 
         # Assert result is passing
-        print result
         self.assertEqual(result['success'], True)
 
         # Wait for /tmp/hi to exist (async troubles)
