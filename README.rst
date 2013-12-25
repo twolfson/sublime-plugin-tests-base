@@ -5,7 +5,14 @@ sublime-plugin-tests-base
    :target: https://travis-ci.org/twolfson/sublime-plugin-tests-base
    :alt: Build Status
 
-Base layer for testing and assertion frameworks against Sublime Text
+Base layer for testing and assertion frameworks against `Sublime Text`_
+
+This is part of the `sublime-plugin-tests`_ project, a full testing framework for `Sublime Text`_
+
+.. _`sublime-plugin-tests`: https://github.com/twolfson/sublime-plugin-tests
+.. _`Sublime Text`: http://sublimetext.com/
+
+For supported versions and FAQs, please consult `sublime-plugin-tests`_.
 
 Getting Started
 ---------------
