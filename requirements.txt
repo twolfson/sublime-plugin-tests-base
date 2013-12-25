@@ -1,2 +1,2 @@
 Jinja2==2.7.1
-sublime_harness==0.3.0
+sublime_harness==0.4.0
