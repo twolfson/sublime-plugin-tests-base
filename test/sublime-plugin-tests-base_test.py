@@ -4,7 +4,7 @@ from unittest import TestCase
 
 import sublime_info
 
-from sublime_plugin_tests_base import sublime_plugin_tests_base
+from sublime_plugin_tests_base import Base
 
 # Set up constants
 __dir__ = os.path.dirname(os.path.abspath(__file__))
@@ -37,16 +37,22 @@ class TestSublimeTestsBase(TestCase):
         shutil.copytree(__dir__ + '/test_files/valid/', plugin_dir)
 
         # TODO: Run an action on the plugin with an assertion inside (as we would in a normal test)
+        base = Base(auto_kill_sublime=os.environ.get('SUBLIME_AUTO_KILL'))
+        base.run_test("""
+import sublime
+
+def run():
+    sublime.active_window().run_command('sublime_plugin_tests_base_valid')
+""")
 
         # Clean up the files
         # os.unlink('/tmp/hi')
         # shutil.rmtree(plugin_dir)
 
         # TODO: Assert result is passing
-        self.assertTrue(bool(sublime_plugin_tests_base))
 
     def test_failing_plugin(self):
         # TODO: Install test-files/failing into sublime_info.plugin_directory
         # TODO: Run an action on the plugin with an assertion inside (as we would in a normal test)
         # TODO: Assert result is failure and error occurred
-        self.assertTrue(bool(sublime_plugin_tests_base))
+        pass
