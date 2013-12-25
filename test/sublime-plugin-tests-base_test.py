@@ -23,27 +23,25 @@ A Sublime Text plugin
 
 
 class TestSublimeTestsBase(TestCase):
-    def test_valid_plugin(self):
-        # Run an action on the plugin
+    def test_passing_test(self):
+        # Run a passing test
         base = Base(auto_kill_sublime=os.environ.get('SUBLIME_AUTO_KILL'))
         f = open(__dir__ + '/test_files/valid.py')
         valid_py = f.read()
         f.close()
         result = base.run_test(valid_py)
 
-        # Assert result is passing
+        # Assert the test passed as expected
         self.assertEqual(result['success'], True)
 
-    def test_failing_plugin(self):
-        # Run a failing action on the plugin
+    def test_failing_test(self):
+        # Run a failing test
         base = Base(auto_kill_sublime=os.environ.get('SUBLIME_AUTO_KILL'))
-        result = base.run_test("""
-import sublime
+        f = open(__dir__ + '/test_files/failing.py')
+        failing_py = f.read()
+        f.close()
+        result = base.run_test(failing_py)
 
-def run():
-    assert sublime == None
-""")
-
-        # Assert result is failure and error occurred
+        # Assert the test failed as expected is passing
         self.assertIn('AssertionError', result['meta_info'])
         self.assertEqual(result['success'], False)
