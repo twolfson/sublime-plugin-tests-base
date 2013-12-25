@@ -40,7 +40,7 @@ class TestSublimeTestsBase(TestCase):
 
         # Clean up the files
         # os.unlink('/tmp/hi')
-        shutil.rmtree(plugin_dir)
+        # shutil.rmtree(plugin_dir)
 
         # TODO: Assert result is passing
         self.assertTrue(bool(sublime_plugin_tests_base))
