@@ -13,7 +13,7 @@ class PluginTestsReplaceAllCommand(sublime_plugin.TextCommand):
         view.replace(edit, sublime.Region(0, view.size()), content)
 
 
-def run(self):
+def run():
     # Placeholder for success and error info
     success = True
     err = None
@@ -21,7 +21,7 @@ def run(self):
     # Attempt to perform actions and catch *any* exception
     try:
         # DEV: Due to `import` not immediately picking up changes, we use `execfile` to run what is on disk
-        filepath = __dir__ + '/plugin.py'
+        filepath = __dir__ + '/plugin_action.py'
         plugin_dict = {
             '__dir__': __dir__,
             '__file__': filepath,

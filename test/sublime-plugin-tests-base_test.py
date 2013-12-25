@@ -42,14 +42,15 @@ class TestSublimeTestsBase(TestCase):
 import sublime
 
 def run():
+    print 'hey'
     sublime.active_window().run_command('sublime_plugin_tests_base_valid')
 """)
 
-        # Clean up the files
-        # os.unlink('/tmp/hi')
-        # shutil.rmtree(plugin_dir)
+        # Assert result is passing
 
-        # TODO: Assert result is passing
+        # Clean up the files
+        shutil.rmtree(plugin_dir)
+        os.unlink('/tmp/hi')
 
     def test_failing_plugin(self):
         # TODO: Install test-files/failing into sublime_info.plugin_directory

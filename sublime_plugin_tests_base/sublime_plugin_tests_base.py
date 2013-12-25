@@ -40,7 +40,7 @@ class Base(object):
         if not os.path.exists(self.directory + '/utils'):
             shutil.copytree(__dir__ + '/utils', self.directory + '/utils')
 
-    def run_test(self, test_str):
+    def run_test(self, action_str):
         # Guarantee there is an output directory and launcher
         self._ensure_utils()
 
@@ -56,8 +56,8 @@ class Base(object):
         f.close()
 
         # Output test to directory
-        f = open(self.directory + '/plugin.py', 'w')
-        f.write(test_str)
+        f = open(self.directory + '/plugin_action.py', 'w')
+        f.write(action_str)
         f.close()
 
         # Run script
