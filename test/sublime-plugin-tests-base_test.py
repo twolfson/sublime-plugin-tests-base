@@ -27,9 +27,11 @@ A failing Sublime Text plugin
 
 class TestSublimeTestsBase(TestCase):
     def test_valid_plugin(self):
-        # Clean up the tmp file if it exists
+        # Clean up the tmp files if they exist
         if os.path.exists('/tmp/hi'):
             os.unlink('/tmp/hi')
+        if os.path.exists('/tmp/valid_ready'):
+            os.unlink('/tmp/valid_ready')
 
         # Install test-files/valid into sublime_info.plugin_directory
         plugin_dir = os.path.join(sublime_info.get_package_directory(), 'valid')
@@ -40,16 +42,18 @@ class TestSublimeTestsBase(TestCase):
         # TODO: Run an action on the plugin with an assertion inside (as we would in a normal test)
         base = Base(auto_kill_sublime=os.environ.get('SUBLIME_AUTO_KILL'))
         result = base.run_test("""
+import os
+import time
 import sublime
 
 def run():
-    global test
-    test = 'hai'
-    sublime.test = 'hai'
+    while (not os.path.exists('/tmp/valid_ready') or os.stat('/tmp/valid_ready').st_size == 0):
+        time.sleep(0.1)
     sublime.active_window().run_command('sublime_plugin_tests_base_valid')
 """)
 
         # Assert result is passing
+        print result
         self.assertEqual(result['success'], True)
 
         # Wait for /tmp/hi to exist (async troubles)
@@ -59,6 +63,7 @@ def run():
         # Clean up the files
         shutil.rmtree(plugin_dir)
         os.unlink('/tmp/hi')
+        os.unlink('/tmp/valid_ready')
 
     def test_failing_plugin(self):
         # TODO: Install test-files/failing into sublime_info.plugin_directory
