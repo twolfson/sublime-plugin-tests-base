@@ -18,22 +18,27 @@ __dir__ = os.path.dirname(os.path.abspath(__file__))
 
 
 class Base(object):
-    def _ensure_plugin_test_dir(self):
+    def __init__(self, auto_kill_sublime=False):
+        self.auto_kill_sublime = auto_kill_sublime
+        self.harness = Harness()
+
+    @property
+    def _directory(self):
+        return self.harness.directory
+
+    def _ensure_directory(self):
         # If the plugin test directory does not exist, create it
-        if not os.path.exists(self._plugin_test_dir):
-            os.makedirs(self._plugin_test_dir)
+        if not os.path.exists(self._directory):
+            os.makedirs(self._directory)
 
     def _ensure_utils(self):
         # Ensure the plugin test directory exists
-        self._ensure_plugin_test_dir()
+        self._ensure_directory()
 
         # TODO: Use similar copy model minus the exception
         # TODO: If we overwrite utils, be sure to wait so that changes for import get picked up
-        if not os.path.exists(self._plugin_test_dir + '/utils'):
-            shutil.copytree(__dir__ + '/utils', self._plugin_test_dir + '/utils')
-
-    def __init__(self, auto_kill_sublime=False):
-        self.auto_kill_sublime = auto_kill_sublime
+        if not os.path.exists(self._directory + '/utils'):
+            shutil.copytree(__dir__ + '/utils', self._directory + '/utils')
 
     def run_test(self, test_str):
         # Guarantee there is an output directory and launcher
@@ -51,12 +56,12 @@ class Base(object):
         f.close()
 
         # Output plugin_runner to directory
-        f = open(self._plugin_test_dir + '/plugin_runner.py', 'w')
+        f = open(self._directory + '/plugin_runner.py', 'w')
         f.write(plugin_runner)
         f.close()
 
         # Output test to directory
-        f = open(self._plugin_test_dir + '/plugin.py', 'w')
+        f = open(self._directory + '/plugin.py', 'w')
         f.write(test_str)
         f.close()
 
