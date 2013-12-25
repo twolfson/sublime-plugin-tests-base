@@ -74,8 +74,10 @@ def run():
         # Run a failing action on the plugin
         base = Base(auto_kill_sublime=os.environ.get('SUBLIME_AUTO_KILL'))
         result = base.run_test("""
+import sublime
+
 def run():
-    assert False
+    assert sublime == None
 """)
 
         # Assert result is failure and error occurred
