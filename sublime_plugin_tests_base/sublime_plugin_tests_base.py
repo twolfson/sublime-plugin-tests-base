@@ -16,27 +16,6 @@ logger = Logger()
 __dir__ = os.path.dirname(os.path.abspath(__file__))
 
 
-# Set up helper fn
-def template(tmpl_path):
-    """ Decorator that templates the returned content. """
-    # Pre-emptively read in the template
-    tmpl = None
-    with open(tmpl_path) as f:
-        tmpl = Template(f.read())
-
-    # Define our templating wrapper fn
-    # TODO: Move to http://docs.python.org/2/library/functools.html#functools.wraps
-    def decorator_fn(fn):
-        def templator_fn(*args, **kwargs):
-            # Run the normal function
-            data = fn(*args, **kwargs)
-
-            # Render the info
-            return tmpl.render(**data)
-        return templator_fn
-    return decorator_fn
-
-
 class Base(object):
     def _ensure_plugin_test_dir(self):
         # If the plugin test directory does not exist, create it
