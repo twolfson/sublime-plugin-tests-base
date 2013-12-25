@@ -26,7 +26,10 @@ class TestSublimeTestsBase(TestCase):
     def test_valid_plugin(self):
         # Run an action on the plugin
         base = Base(auto_kill_sublime=os.environ.get('SUBLIME_AUTO_KILL'))
-        result = base.run_test()
+        f = open(__dir__ + '/test_files/valid.py')
+        valid_py = f.read()
+        f.close()
+        result = base.run_test(valid_py)
 
         # Assert result is passing
         self.assertEqual(result['success'], True)

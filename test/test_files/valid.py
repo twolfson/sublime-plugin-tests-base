@@ -1,6 +1,7 @@
 import sublime
 
-from .utils.scratch_view import ScratchView
+# DEV: In ST2, we cannot perform relative imports in non-packages (or so the console says)
+from utils.scratch_view import ScratchView
 
 
 def run():
@@ -10,7 +11,7 @@ def run():
     try:
         # Injection point for input variables
         content = "abc"
-        target_sel = [1, 1]
+        target_sel = [[1, 1]]
 
         # Output single.input to scratch
         scratch_view.set_content(content)
@@ -22,8 +23,8 @@ def run():
         scratch_view.run_command('left_delete')
 
         # Injection point for assertion variables
-        expected_content = """ac"""
-        expected_sel = [0, 0]
+        expected_content = "bc"
+        expected_sel = [[0, 0]]
 
         # Assert input to output
         # TODO: Move to self.assertEqual
