@@ -81,7 +81,7 @@ def run():
             shutil.rmtree(plugin_dir)
         shutil.copytree(__dir__ + '/test_files/failing/', plugin_dir)
 
-        # TODO: Run an action on the plugin with an assertion inside (as we would in a normal test)
+        # Run a failing action on the plugin
         base = Base(auto_kill_sublime=os.environ.get('SUBLIME_AUTO_KILL'))
         result = base.run_test("""
 import os
@@ -97,6 +97,7 @@ def run():
 """)
 
         # TODO: Assert result is failure and error occurred
+        print result
         self.assertEqual(result['success'], False)
 
         # Clean up the files
