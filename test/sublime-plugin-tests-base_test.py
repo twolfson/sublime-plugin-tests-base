@@ -43,6 +43,9 @@ class TestSublimeTestsBase(TestCase):
 import sublime
 
 def run():
+    global test
+    test = 'hai'
+    sublime.test = 'hai'
     sublime.active_window().run_command('sublime_plugin_tests_base_valid')
 """)
 
