@@ -61,6 +61,10 @@ def run():
         while (not os.path.exists('/tmp/hi') or os.stat('/tmp/hi').st_size == 0):
             time.sleep(0.1)
 
+        # Assert /tmp/hi was written to
+        with open('/tmp/hi') as f:
+            self.assertEqual(f.read(), 'Hello World!')
+
         # Clean up the files
         shutil.rmtree(plugin_dir)
         os.unlink('/tmp/hi')
