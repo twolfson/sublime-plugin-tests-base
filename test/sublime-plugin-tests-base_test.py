@@ -42,7 +42,6 @@ class TestSublimeTestsBase(TestCase):
 import sublime
 
 def run():
-    print 'hey'
     sublime.active_window().run_command('sublime_plugin_tests_base_valid')
 """)
 

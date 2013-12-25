@@ -5,6 +5,9 @@ import sublime_plugin
 import sys
 import traceback
 
+# Set up constants
+__dir__ = os.path.dirname(os.path.abspath(__file__))
+
 
 # TODO: Figure out where to put this
 class PluginTestsReplaceAllCommand(sublime_plugin.TextCommand):
@@ -22,14 +25,20 @@ def run():
     try:
         # DEV: Due to `import` not immediately picking up changes, we use `execfile` to run what is on disk
         filepath = __dir__ + '/plugin_action.py'
+        # TODO: Use folder name as namespace, not hard-coded value
+        namespace = 'sublime-harness-tmp'
+        is_sublime_2k = sublime.version() < '3000'
         plugin_dict = {
             '__dir__': __dir__,
             '__file__': filepath,
-            '__name__': '%s.plugin' % __package__,
-            '__package__': __package__,
+            '__name__': 'plugin_action' if is_sublime_2k else '%s.plugin_action' % namespace,
+            '__package__': None if is_sublime_2k else namespace,
             '__builtins__': __builtins__,
         }
-        if getattr(__builtins__, 'execfile', None):
+
+        # DEV: In Python 2.x, use execfile. In 3.x, use compile + exec.
+        # if getattr(__builtins__, 'execfile', None):
+        if is_sublime_2k:
             execfile(filepath, plugin_dict, plugin_dict)
         else:
             f = open(filepath)
