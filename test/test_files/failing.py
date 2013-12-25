@@ -1,7 +1,10 @@
 import sublime
 
 # DEV: In ST2, we cannot perform relative imports in non-packages (or so the console says)
-from utils.scratch_view import ScratchView
+try:
+    from utils.scratch_view import ScratchView
+except ImportError:
+    from .utils.scratch_view import ScratchView
 
 
 def run():
