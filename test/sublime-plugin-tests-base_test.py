@@ -43,13 +43,13 @@ class TestSublimeTestsBase(TestCase):
         base = Base(auto_kill_sublime=os.environ.get('SUBLIME_AUTO_KILL'))
         result = base.run_test("""
 import os
-import time
 import sublime
 
 def run():
-    while (not os.path.exists('/tmp/valid_ready') or os.stat('/tmp/valid_ready').st_size == 0):
-        time.sleep(0.1)
-    sublime.active_window().run_command('sublime_plugin_tests_base_valid')
+    if (not os.path.exists('/tmp/valid_ready') or os.stat('/tmp/valid_ready').st_size == 0):
+        sublime.set_timeout(run, 100)
+    else:
+        sublime.active_window().run_command('sublime_plugin_tests_base_valid')
 """)
 
         # Assert result is passing
