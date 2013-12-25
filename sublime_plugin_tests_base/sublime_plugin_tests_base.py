@@ -44,9 +44,6 @@ class Base(object):
         # Guarantee there is an output directory and launcher
         self._ensure_utils()
 
-        print self.directory
-        return
-
         # Reserve an output file
         output_file = tempfile.mkstemp()[1]
 
@@ -58,17 +55,13 @@ class Base(object):
                                                auto_kill_sublime=self.auto_kill_sublime)
         f.close()
 
-        # Output plugin_runner to directory
-        f = open(self.directory + '/plugin_runner.py', 'w')
-        f.write(plugin_runner)
-        f.close()
-
         # Output test to directory
         f = open(self.directory + '/plugin.py', 'w')
         f.write(test_str)
         f.close()
 
-        # TODO: Run script
+        # Run script
+        self.harness.run(plugin_runner)
 
         # Wait for the output file to exist
         while (not os.path.exists(output_file) or os.stat(output_file).st_size == 0):
