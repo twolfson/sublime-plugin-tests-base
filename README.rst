@@ -68,17 +68,48 @@ Then, write your tests:
 
     OK
 
+Travis CI integration
+'''''''''''''''''''''
+We support both Sublime Text 2 and 3 via Travis CI.
+
+Please consult `sublime-plugin-tests#travis-ci-integration`_ for the most up-to-date information.
+
+.. _`sublime-plugin-tests#travis-ci-integration`: https://github.com/twolfson/sublime-plugin-tests#travis-ci-integration
+
 Documentation
 -------------
-_(Coming soon)_
+``sublime-plugin-tests-base`` consists of two pieces: test framework code (outside Sublime Text) and test helpers (inside Sublime Text).
 
-Examples
---------
-_(Coming soon)_
+The test framework code is run in your normal development environment (e.g. where `nosetests` lives). The test helpers live inside of Sublime text to make your testing life easier.
+
+
 
 Contributing
 ------------
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Test via ``nosetests``.
+In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Test via ``./test.sh``.
+
+If you would like to headlessly run the tests, this repository can be used with `Vagrant`_.
+
+..
+
+    Currently, it is only configured for Sublime Text 3.
+
+.. _Vagrant: http://vagrantup.com/
+
+.. code:: bash
+
+    $ vagrant up
+    [default] Importing base box 'precise64'...
+    ...
+    $ vagrant ssh st2 # Sublime Text 3
+    $ # Use `st3` for Sublime Text 2
+    vagrant@precise64:~$ cd /vagrant
+    vagrant@precise64:/vagrant$ ./test.sh
+    ..
+    ----------------------------------------------------------------------
+    Ran 2 tests in 2.957s
+
+    OK
 
 Donating
 --------
