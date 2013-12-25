@@ -1,5 +1,6 @@
 import os
 import shutil
+import time
 from unittest import TestCase
 
 import sublime_info
@@ -38,7 +39,7 @@ class TestSublimeTestsBase(TestCase):
 
         # TODO: Run an action on the plugin with an assertion inside (as we would in a normal test)
         base = Base(auto_kill_sublime=os.environ.get('SUBLIME_AUTO_KILL'))
-        base.run_test("""
+        result = base.run_test("""
 import sublime
 
 def run():
@@ -46,6 +47,11 @@ def run():
 """)
 
         # Assert result is passing
+        self.assertEqual(result['success'], True)
+
+        # Wait for /tmp/hi to exist (async troubles)
+        while (not os.path.exists('/tmp/hi') or os.stat('/tmp/hi').st_size == 0):
+            time.sleep(0.1)
 
         # Clean up the files
         shutil.rmtree(plugin_dir)

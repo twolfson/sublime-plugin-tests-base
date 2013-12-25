@@ -63,6 +63,7 @@ class Base(object):
         self.harness.run(plugin_runner)
 
         # Wait for the output file to exist
+        # TODO: Introduce timeout
         while (not os.path.exists(output_file) or os.stat(output_file).st_size == 0):
             logger.debug('Waiting for %s to exist / have size' % output_file)
             time.sleep(0.1)
