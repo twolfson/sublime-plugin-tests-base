@@ -23,13 +23,13 @@ class Base(object):
         self.harness = Harness()
 
     @property
-    def _directory(self):
+    def directory(self):
         return self.harness.directory
 
     def _ensure_directory(self):
         # If the plugin test directory does not exist, create it
-        if not os.path.exists(self._directory):
-            os.makedirs(self._directory)
+        if not os.path.exists(self.directory):
+            os.makedirs(self.directory)
 
     def _ensure_utils(self):
         # Ensure the plugin test directory exists
@@ -37,12 +37,15 @@ class Base(object):
 
         # TODO: Use similar copy model minus the exception
         # TODO: If we overwrite utils, be sure to wait so that changes for import get picked up
-        if not os.path.exists(self._directory + '/utils'):
-            shutil.copytree(__dir__ + '/utils', self._directory + '/utils')
+        if not os.path.exists(self.directory + '/utils'):
+            shutil.copytree(__dir__ + '/utils', self.directory + '/utils')
 
     def run_test(self, test_str):
         # Guarantee there is an output directory and launcher
         self._ensure_utils()
+
+        print self.directory
+        return
 
         # Reserve an output file
         output_file = tempfile.mkstemp()[1]
@@ -56,12 +59,12 @@ class Base(object):
         f.close()
 
         # Output plugin_runner to directory
-        f = open(self._directory + '/plugin_runner.py', 'w')
+        f = open(self.directory + '/plugin_runner.py', 'w')
         f.write(plugin_runner)
         f.close()
 
         # Output test to directory
-        f = open(self._directory + '/plugin.py', 'w')
+        f = open(self.directory + '/plugin.py', 'w')
         f.write(test_str)
         f.close()
 
