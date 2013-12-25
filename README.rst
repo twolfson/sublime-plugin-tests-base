@@ -105,13 +105,15 @@ Run code within the context of Sublime Text. This will capture any **synchronous
 
 - result ``Dictionary`` - Container for results
     - success ``Boolean`` - If there were no errors, ``True``. Otherwise, ``False``.
-    - meta_info ``String`` - If there was an error, formatted traceback from the error that occurred. Otherwise, ``''``.
+    - meta_info ``String`` - Formatted traceback from the error that occurred.
 
 Test helpers
 ^^^^^^^^^^^^
 utils.scratch_view.ScratchView
 """"""""""""""""""""""""""""""
-This assists with creating/tearing down/manipulating views. Please consult `sublime-plugin-tests#utilsscratch_viewscratchview`_ for the most up-to-date information.
+This assists with creating/tearing down/manipulating views.
+
+Please consult `sublime-plugin-tests#utilsscratch_viewscratchview`_ for the most up-to-date information.
 
 .. _`sublime-plugin-tests#utilsscratch_viewscratchview`: https://github.com/twolfson/sublime-plugin-tests#utilsscratch_viewscratchview
 
@@ -119,7 +121,7 @@ Architecture
 ------------
 Please consult `sublime-plugin-tests#architecture`_ for the most up-to-date information.
 
-.. _`sublime-plugin-tests#travis-ci-integration`: https://github.com/twolfson/sublime-plugin-tests#architecture
+.. _`sublime-plugin-tests#architecture`: https://github.com/twolfson/sublime-plugin-tests#architecture
 
 Contributing
 ------------
