@@ -9,8 +9,6 @@ import tempfile
 from jinja2 import Template
 from sublime_harness import Harness
 
-print Harness
-
 # Set up local dependencies
 from .logger import Logger
 logger = Logger()
