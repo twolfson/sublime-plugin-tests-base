@@ -14,6 +14,16 @@ This is part of the `sublime-plugin-tests`_ project, a full testing framework fo
 
 For supported versions and FAQs, please consult `sublime-plugin-tests`_.
 
+Deprecation notice
+==================
+We have decided to deprecate ``sublime-plugin-tests-base`` in favor of `randy3k/UnitTesting`_.
+
+It has greater platform support and a less brittle design for local development.
+
+https://github.com/randy3k/UnitTesting
+
+.. _`randy3k/UnitTesting`: https://github.com/randy3k/UnitTesting
+
 Getting Started
 ---------------
 Install the module with: ``pip install sublime_plugin_tests_base``
