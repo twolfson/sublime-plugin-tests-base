@@ -3,3 +3,4 @@ build/
 dist/
 sublime_plugin_tests_base.egg-info
 .vagrant/
+node_modules/
